@@ -17,12 +17,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <meta name="google-site-verification" content="uWnyXNN2L8P3wP8VDDQQRpAtYXSHVWLkFxaJTUz9uJU" />
-        {/* Google AdSense — uncomment and add your publisher ID after approval */}
-        {/* <script
+        <script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1057278110445019"
           crossOrigin="anonymous"
-        /> */}
+        />
       </head>
       <body>{children}</body>
     </html>
