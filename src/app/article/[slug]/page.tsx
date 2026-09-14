@@ -73,7 +73,7 @@ export default async function ArticlePage({ params }: Props) {
   const stopWords = new Set(['the', 'a', 'an', 'in', 'on', 'at', 'to', 'for', 'of', 'and', 'or', 'but', 'as', 'is', 'it', 'its'])
   const tags = article.title
     .split(/\s+/)
-    .filter(w => w.length > 4 && !stopWords.has(w.toLowerCase()))
+   .filter((w: string) => w.length > 4 && !stopWords.has(w.toLowerCase()))
     .slice(0, 6)
     .map(w => w.replace(/[^a-zA-Z0-9]/g, ''))
     .filter(Boolean)
