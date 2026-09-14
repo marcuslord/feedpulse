@@ -3,7 +3,6 @@ import { CATEGORY_META, Category } from '@/lib/feeds'
 import Navbar from '@/components/Navbar'
 import CryptoTicker from '@/components/CryptoTicker'
 import AdSlot from '@/components/AdSlot'
-import ArticleCard from '@/components/ArticleCard'
 import { notFound } from 'next/navigation'
 import { formatDistanceToNow, format } from 'date-fns'
 import Link from 'next/link'
@@ -19,7 +18,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .select('title, description, image_url')
     .eq('slug', params.slug)
     .single()
-
   if (!article) return {}
   return {
     title: `${article.title} — FeedPulse`,
@@ -66,16 +64,15 @@ export default async function ArticlePage({ params }: Props) {
   ])
 
   const meta = CATEGORY_META[article.category as Category]
-  const timeAgo = formatDistanceToNow(new Date(article.published_at), { addSuffix: true })
   const fullDate = format(new Date(article.published_at), 'MMM d, yyyy')
 
   const stopWords = new Set(['the', 'a', 'an', 'in', 'on', 'at', 'to', 'for', 'of', 'and', 'or', 'but', 'as', 'is', 'it', 'its'])
-  const tags = article.title
+  const tags: string[] = article.title
     .split(/\s+/)
     .filter((w: string) => w.length > 4 && !stopWords.has(w.toLowerCase()))
     .slice(0, 6)
     .map((w: string) => w.replace(/[^a-zA-Z0-9]/g, ''))
-    .filter(Boolean)
+    .filter((w: string) => Boolean(w))
 
   return (
     <main style={{ minHeight: '100vh', background: 'var(--navy)' }}>
@@ -155,11 +152,12 @@ export default async function ArticlePage({ params }: Props) {
 
             <div className="article-body" style={{ fontFamily: 'Lora, serif', fontSize: 16, color: '#C8D4EE' }}>
               <p style={{ marginBottom: '1.25rem' }}>{article.description}</p>
-
               {article.content ? (
                 <div>
                   {article.content.split('\n\n').map((paragraph: string, i: number) => (
-                    paragraph.trim() ? <p key={i} style={{ marginBottom: '1.25rem' }}>{paragraph.trim()}</p> : null
+                    paragraph.trim()
+                      ? <p key={i} style={{ marginBottom: '1.25rem' }}>{paragraph.trim()}</p>
+                      : null
                   ))}
                 </div>
               ) : (
@@ -186,7 +184,7 @@ export default async function ArticlePage({ params }: Props) {
                   Read the full article on {article.source_name}
                 </span>
               </div>
-              
+              <a
                 href={article.source_url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -212,17 +210,14 @@ export default async function ArticlePage({ params }: Props) {
               </div>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 {tags.map(tag => (
-                  <span
-                    key={tag}
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 500,
-                      padding: '5px 12px',
-                      borderRadius: 20,
-                      border: '1px solid var(--border)',
-                      color: 'var(--muted)',
-                    }}
-                  >
+                  <span key={tag} style={{
+                    fontSize: 12,
+                    fontWeight: 500,
+                    padding: '5px 12px',
+                    borderRadius: 20,
+                    border: '1px solid var(--border)',
+                    color: 'var(--muted)',
+                  }}>
                     {tag}
                   </span>
                 ))}
@@ -247,16 +242,13 @@ export default async function ArticlePage({ params }: Props) {
                   const relTime = formatDistanceToNow(new Date(rel.published_at), { addSuffix: true })
                   return (
                     <Link key={rel.id} href={`/article/${rel.slug}`} style={{ textDecoration: 'none' }}>
-                      <div
-                        className="article-card"
-                        style={{
-                          background: 'var(--card)',
-                          border: '1px solid var(--border)',
-                          borderRadius: 10,
-                          padding: 12,
-                          cursor: 'pointer',
-                        }}
-                      >
+                      <div className="article-card" style={{
+                        background: 'var(--card)',
+                        border: '1px solid var(--border)',
+                        borderRadius: 10,
+                        padding: 12,
+                        cursor: 'pointer',
+                      }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
                           <span style={{
                             fontSize: 10,
