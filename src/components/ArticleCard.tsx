@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import { formatDistanceToNow } from 'date-fns'
 import { Article } from '@/lib/supabase'
@@ -28,17 +29,14 @@ export default function ArticleCard({ article, featured = false }: Props) {
           height: '100%',
         }}
       >
-        {/* Image for featured card */}
         {featured && article.image_url && (
           <img
             src={article.image_url}
             alt={article.title}
             style={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 8, marginBottom: 4 }}
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
           />
         )}
 
-        {/* Top row */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span style={{
             fontSize: 11,
@@ -53,7 +51,6 @@ export default function ArticleCard({ article, featured = false }: Props) {
           <span style={{ fontSize: 11, color: 'var(--muted)' }}>{timeAgo}</span>
         </div>
 
-        {/* Title */}
         <h2 style={{
           fontFamily: featured ? 'Manrope, sans-serif' : 'Inter, sans-serif',
           fontSize: featured ? 22 : 15,
@@ -66,12 +63,10 @@ export default function ArticleCard({ article, featured = false }: Props) {
           {article.title}
         </h2>
 
-        {/* Description */}
         <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.5, margin: 0 }}>
           {article.description.slice(0, 120)}{article.description.length > 120 ? '…' : ''}
         </p>
 
-        {/* Footer */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
