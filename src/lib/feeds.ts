@@ -45,10 +45,12 @@ export const FEEDS: FeedSource[] = [
   { name: 'Reuters Top News', url: 'https://feeds.reuters.com/reuters/topNews', category: 'world' },
   { name: 'AP News', url: 'https://rsshub.app/apnews/topics/apf-topnews', category: 'world' },
 
+  
   // YouTube
-  { name: 'Tubefilter', url: 'https://www.tubefilter.com/feed/', category: 'youtube' },
-  { name: 'The Verge YouTube', url: 'https://www.theverge.com/youtube/rss/index.xml', category: 'youtube' },
-  { name: 'Social Media Today', url: 'https://www.socialmediatoday.com/rss/', category: 'youtube' },
+{ name: 'Tubefilter', url: 'https://www.tubefilter.com/feed/', category: 'youtube' },
+{ name: 'Social Media Today', url: 'https://www.socialmediatoday.com/rss/', category: 'youtube' },
+{ name: 'Creator Economy', url: 'https://creatoreconomy.so/feed', category: 'youtube' },
+{ name: 'Influencer Marketing Hub', url: 'https://influencermarketinghub.com/feed/', category: 'youtube' },
 ]
 
 export const CATEGORY_META: Record<Category, { label: string; color: string; bg: string; description: string }> = {
