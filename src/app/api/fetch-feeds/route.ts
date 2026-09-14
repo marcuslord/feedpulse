@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
         const publishedAt = item.pubDate || item.isoDate || new Date().toISOString()
         const slug = makeSlug(title, publishedAt)
         const imageUrl = extractImage(item)
-        const author = item.creator || item.author || null
+        const author = (item as any).creator || (item as any).author || null
 
         // Skip if already exists
         const { data: existing } = await db
