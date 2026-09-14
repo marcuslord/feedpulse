@@ -151,7 +151,6 @@ export default async function ArticlePage({ params }: Props) {
             <AdSlot slot="banner" />
 
             <div className="article-body" style={{ fontFamily: 'Lora, serif', fontSize: 16, color: '#C8D4EE' }}>
-              <p style={{ marginBottom: '1.25rem' }}>{article.description}</p>
               {article.content ? (
                 <div>
                   {article.content.split('\n\n').map((paragraph: string, i: number) => (
@@ -161,7 +160,10 @@ export default async function ArticlePage({ params }: Props) {
                   ))}
                 </div>
               ) : (
-                <p>This story is developing. For the full article and latest updates, visit the original source below.</p>
+                <div>
+                  <p style={{ marginBottom: '1.25rem' }}>{article.description}</p>
+                  <p>This story is developing. For the full article and latest updates, visit the original source below.</p>
+                </div>
               )}
             </div>
 
