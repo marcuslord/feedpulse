@@ -107,7 +107,6 @@ export default async function ArticlePage({ params }: Props) {
                 src={article.image_url}
                 alt={article.title}
                 style={{ width: '100%', height: 260, objectFit: 'cover', borderRadius: 10, marginBottom: 20 }}
-                onError={(e: any) => { e.target.style.display = 'none' }}
               />
             )}
 
