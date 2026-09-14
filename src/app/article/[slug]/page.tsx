@@ -75,7 +75,7 @@ export default async function ArticlePage({ params }: Props) {
     .split(/\s+/)
    .filter((w: string) => w.length > 4 && !stopWords.has(w.toLowerCase()))
     .slice(0, 6)
-    .map(w => w.replace(/[^a-zA-Z0-9]/g, ''))
+    .map((w: string) => w.replace(/[^a-zA-Z0-9]/g, ''))
     .filter(Boolean)
 
   return (
