@@ -16,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <meta name="google-site-verification" content="uWnyXNN2L8P3wP8VDDQQRpAtYXSHVWLkFxaJTUz9uJU" />
         {/* Google AdSense — uncomment and add your publisher ID after approval */}
         {/* <script
           async
