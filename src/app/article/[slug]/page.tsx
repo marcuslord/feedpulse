@@ -69,11 +69,10 @@ export default async function ArticlePage({ params }: Props) {
   const timeAgo = formatDistanceToNow(new Date(article.published_at), { addSuffix: true })
   const fullDate = format(new Date(article.published_at), 'MMM d, yyyy')
 
-  // Extract tags from title words (simple approach)
   const stopWords = new Set(['the', 'a', 'an', 'in', 'on', 'at', 'to', 'for', 'of', 'and', 'or', 'but', 'as', 'is', 'it', 'its'])
   const tags = article.title
     .split(/\s+/)
-   .filter((w: string) => w.length > 4 && !stopWords.has(w.toLowerCase()))
+    .filter((w: string) => w.length > 4 && !stopWords.has(w.toLowerCase()))
     .slice(0, 6)
     .map((w: string) => w.replace(/[^a-zA-Z0-9]/g, ''))
     .filter(Boolean)
@@ -86,9 +85,7 @@ export default async function ArticlePage({ params }: Props) {
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '28px 20px 60px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 272px', gap: 28 }}>
 
-          {/* Main content */}
           <article>
-            {/* Breadcrumb */}
             <nav style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--muted)', marginBottom: 16 }}>
               <Link href="/" style={{ color: 'var(--muted)', textDecoration: 'none' }}>Home</Link>
               <span>›</span>
@@ -101,7 +98,6 @@ export default async function ArticlePage({ params }: Props) {
               </span>
             </nav>
 
-            {/* Hero image */}
             {article.image_url && (
               <img
                 src={article.image_url}
@@ -110,7 +106,6 @@ export default async function ArticlePage({ params }: Props) {
               />
             )}
 
-            {/* Category tag */}
             <span style={{
               display: 'inline-block',
               fontSize: 11,
@@ -124,7 +119,6 @@ export default async function ArticlePage({ params }: Props) {
               {meta?.label}
             </span>
 
-            {/* Title */}
             <h1 style={{
               fontFamily: 'Manrope, sans-serif',
               fontSize: 26,
@@ -137,7 +131,6 @@ export default async function ArticlePage({ params }: Props) {
               {article.title}
             </h1>
 
-            {/* Meta row */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -158,28 +151,24 @@ export default async function ArticlePage({ params }: Props) {
               </span>
             </div>
 
-            {/* Top ad */}
             <AdSlot slot="banner" />
 
-            {/* Article body */}
             <div className="article-body" style={{ fontFamily: 'Lora, serif', fontSize: 16, color: '#C8D4EE' }}>
-              <p>{article.description}</p>
+              <p style={{ marginBottom: '1.25rem' }}>{article.description}</p>
 
               {article.content ? (
-                <div dangerouslySetInnerHTML={{ __html: article.content }} />
+                <div>
+                  {article.content.split('\n\n').map((paragraph: string, i: number) => (
+                    paragraph.trim() ? <p key={i} style={{ marginBottom: '1.25rem' }}>{paragraph.trim()}</p> : null
+                  ))}
+                </div>
               ) : (
-                <>
-                  <p>
-                    This story is developing. For the full article and latest updates, visit the original source below.
-                  </p>
-                </>
+                <p>This story is developing. For the full article and latest updates, visit the original source below.</p>
               )}
             </div>
 
-            {/* Inline ad */}
             <AdSlot slot="inline" />
 
-            {/* Read original source */}
             <div style={{
               background: 'var(--card2)',
               border: '1px solid var(--border)',
@@ -197,7 +186,7 @@ export default async function ArticlePage({ params }: Props) {
                   Read the full article on {article.source_name}
                 </span>
               </div>
-              <a
+              
                 href={article.source_url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -217,7 +206,6 @@ export default async function ArticlePage({ params }: Props) {
               </a>
             </div>
 
-            {/* Related topics */}
             <div style={{ paddingTop: 20, borderTop: '1px solid var(--border)' }}>
               <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--muted)', letterSpacing: '0.5px', marginBottom: 10 }}>
                 RELATED TOPICS
@@ -242,12 +230,10 @@ export default async function ArticlePage({ params }: Props) {
             </div>
           </article>
 
-          {/* Sidebar */}
           <aside>
             <div style={{ position: 'sticky', top: 20 }}>
               <AdSlot slot="sidebar" />
 
-              {/* Related articles */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
                 <h3 style={{ fontFamily: 'Manrope, sans-serif', fontSize: 14, fontWeight: 700, color: '#fff', margin: 0, whiteSpace: 'nowrap' }}>
                   More articles
